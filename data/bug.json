@@ -1,10 +1,10 @@
 [
     {
-        "title": "puki",
-        "severity": "22",
-        "description": "bit by bit tuned It All above each time had to was a dead channel above happens a different story this happened burn as generally . I the color of television to the port the port was a dead channel to and bit by bit a different story The sky happens ",
-        "_id": "VpyQs",
-        "createdAt": 1710806557280
+        "title": "Puki",
+        "severity": "32",
+        "description": "Very bad muki",
+        "_id": "ckHs4",
+        "createdAt": 1710806942364
     },
     {
         "_id": "abc123",
@@ -14,10 +14,11 @@
         "createdAt": 1542107359454
     },
     {
+        "_id": "abc124",
         "title": "Cannot save a new car",
-        "severity": "2",
         "description": "problem when clicking Save",
-        "_id": "abc124"
+        "severity": 4,
+        "createdAt": 1542107359454
     },
     {
         "_id": "abc125",
