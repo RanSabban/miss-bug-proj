@@ -42,6 +42,8 @@ function save(bug) {
     bugs[bugIdx] = bug
   } else {
     bug._id = utilService.makeId()
+    bug.createdAt = Date.now()
+    bug.description = utilService.makeLorem(30)
     bugs.unshift(bug)
   }
   return _saveBugsToFile().then(() => bug)

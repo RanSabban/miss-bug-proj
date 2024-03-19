@@ -25,30 +25,50 @@ app.get('/api/bug', (req, res) => {
 
 app.get('/api/bug/save', (req, res) => {
     const bugToSave = {
-
+        title: req.query.title,
+        severity: req.query.severity,
+        description: req.query.description,
+        _id: req.query._id
     }
- })
+    bugService.save(bugToSave)
+        .then(bug => res.send(bug))
+        .catch(err => {
+            loggerService.error('cannot save car',err)
+            res.status(400).send('cannot save car')
+        })
+})
 
- app.get('/api/bug/:id', (req, res) => {
-    const bugId = req.params.id
+app.get('/api/bug/:bugId', (req, res) => {
+    const bugId = req.params.bugId
     bugService.getById(bugId)
-       .then(bug => {
+        .then(bug => {
             res.send(bug)
-       })
-       .catch(err => {
-        loggerService.error('cannot get bug', err)
-        res.status(400).send('cannot get bug')
-    })
-  })
+        })
+        .catch(err => {
+            loggerService.error('cannot get bug', err)
+            res.status(400).send('cannot get bug')
+        })
+})
 
 
 
 
 
-app.get('/api/bug/:bugId/remove', (req, res) => { })
+app.get('/api/bug/:bugId/remove', (req, res) => {
+    const bugId = req.params.bugId
+    bugService.remove(bugId)
+        .then(bug => {
+            res.send(bug)
+        })
+        .catch(err => {
+            loggerService.error('cannot remove bug', err)
+            res.status(400).send('cannot remove bug')
+        })
+
+})
 
 const port = 3030
-app.listen(port, () => 
+app.listen(port, () =>
     loggerService.info(`Server listening on port http://127.0.0.1:${port}/`)
 )
 
