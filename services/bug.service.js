@@ -3,6 +3,8 @@ import fs from 'fs'
 
 import { utilService } from './utils.service.js'
 
+const PAGE_SIZE = 4
+
 // const STORAGE_KEY = 'bugDB'
 
 // _createBugs()
@@ -44,6 +46,14 @@ function query(filterBy,sortBy) {
 
     if (sortBy.severity) {
         bugsToReturn = bugsToReturn.sort((bugA,bugB) => (bugA.severity - bugB.severity) * sortBy.severity)
+    }
+    if (filterBy.pageIdx !== undefined) {
+        const pageIdx = +filterBy.pageIdx
+        const startIdx = pageIdx * PAGE_SIZE
+        bugsToReturn = bugsToReturn.slice(startIdx, startIdx + PAGE_SIZE)
+    }
+    if (filterBy.label) {
+        bugsToReturn = bugsToReturn.filter(bug => bug.labels.includes(filterBy.label))
     }
     return Promise.resolve(bugsToReturn)
 }

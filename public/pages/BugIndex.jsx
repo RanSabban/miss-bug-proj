@@ -61,7 +61,7 @@ export function BugIndex() {
     }
 
     function onEditBug(bug) {
-        const severity = +prompt('New severity?')
+    const severity = +prompt('New severity?')
         const bugToSave = { ...bug, severity }
         bugService
             .save(bugToSave)
@@ -79,9 +79,32 @@ export function BugIndex() {
             })
     }
 
+    function onChangePage(diff) {
+        if (filterBy.pageIdx === undefined) return
+        let nextPageIdx = filterBy.pageIdx + diff
+        if (nextPageIdx < 0) nextPageIdx = 0
+        setFilterBy(prevFilterBy =>({
+            ...prevFilterBy, pageIdx: nextPageIdx
+        }))
+    }
+
+    function onTogglePageination() {
+        setFilterBy(prevFilterBy => ({
+            ...prevFilterBy, 
+            pageIdx: filterBy.pageIdx === undefined ? 0 : undefined
+        }))
+    }
+
     return (
         <main>
             <h3>Bugs App</h3>
+            <section className="pagination">
+                <button onClick={() => onChangePage(-1)}>Prev</button>
+                <span className='page-idx'>{filterBy.pageIdx + 1 || 'No pagination'}</span>
+                <button onClick={() => onChangePage(1)}>Next</button>
+                <button onClick={() => onTogglePageination()}>Toggle Pagination</button>
+            </section>
+
             <BugFilter setFilterBy={debounceOnSetFilterBy.current} filterBy={filterBy}/>
             <BugSort sortBy={sortBy} setSortBy={setSortBy} />
             <main>

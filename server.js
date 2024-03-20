@@ -18,6 +18,8 @@ app.get('/api/bug', (req, res) => {
         title: req.query.title || '',
         desc: req.query.desc || '', 
         minSeverity: req.query.minSeverity || 0,
+        pageIdx: req.query.pageIdx || 0,
+        label: req.query.label || ''
     }
     // const sortBy = req.query.sortBy
     // console.log(sortBy,filterBy);

@@ -10,6 +10,15 @@ export function BugDetails() {
     const [bug, setBug] = useState(null)
     const { bugId } = useParams()
 
+    function getLabels() {
+        return <ul>{
+            
+            bug.labels.map(label => {
+                return <li key={bug._id}>{label}</li>
+            })}
+        </ul>
+    }
+
     useEffect(() => {
         bugService.getById(bugId)
             .then(bug => {
@@ -26,6 +35,8 @@ export function BugDetails() {
         <h4>{bug.title}</h4>
         <p>Description: <span>{bug.description}</span></p>
         <p>Severity: <span>{bug.severity}</span></p>
+        <h2>Labels: </h2>
+        {getLabels()}
         <Link to="/bug">Back to List</Link>
     </div>
 
